@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE version SYSTEM "../../../lib/pkp/dtd/pluginVersion.dtd">
+<version>
+	<application>actionInfo</application>
+	<type>plugins.generic</type>
+	<release>0.1.4.1</release>
+	<date>2019-05-15</date>
+	<sitewide>1</sitewide>
+	<class>ActionInfoPlugin</class>
+</version>
