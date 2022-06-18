@@ -5,7 +5,7 @@ import('plugins.generic.actionInfo.handlers.LoadHandler');
 class HandlerRegister
 {
 
-    function getHandlerList()
+    public static function getHandlerList()
     {
         $handlers = array();
 

@@ -1,34 +1,22 @@
 <?php
 
-/**
- * @file classes/StaticPage.inc.php
- *
- * Copyright (c) 2014-2020 Simon Fraser University
- * Copyright (c) 2003-2020 John Willinsky
- * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
- *
- * @package plugins.generic.staticPages
- * @class StaticPage
- * Data object representing a static page.
- */
+import('plugins.generic.actionInfo.classes.AbstractConfigurable');
 
-abstract class AbstractHandler
+abstract class AbstractHandler extends AbstractConfigurable
 {
     private $user;
     private $context;
-
     abstract function getHandlerName();
 
-    abstract function process($hookName, $args);
+    abstract function process($hookName, $args, $plugin);
 
-    public function init($hookName, $args)
+    public function init($hookName, $args, $plugin)
     {
         $request = Application::get()->getRequest();
         $this->context = $request->getContext();
         $this->user =& $request->getUser();
 
-        $this->process($hookName, $args);
-
+        $this->process($hookName, $args, $plugin);
     }
 
     public function getUser()
@@ -41,7 +29,7 @@ abstract class AbstractHandler
         return $this->context;
     }
 
-    public function saveActionInfo($type, $action, $params, $payload)
+    public function saveActionInfo($type, $action, $params, $payload, $date)
     {
         /** @var ActionInfoDAO */
         $actionInfoDao =& DAORegistry::getDAO('ActionInfoDAO');
@@ -50,7 +38,7 @@ abstract class AbstractHandler
 
         $actionInfo->setUserId($this->user == null ? 0 : $this->user->getId());
         $actionInfo->setContextId($this->context == null ? 0 : $this->context->getId());
-        $actionInfo->setDate(time());
+        $actionInfo->setDate($date);
         $actionInfo->setType($type);
         $actionInfo->setAction($action);
         $actionInfo->setParams($params);
@@ -58,7 +46,6 @@ abstract class AbstractHandler
 
         $actionInfoDao->insertObject($actionInfo);
     }
-
 
 }
 

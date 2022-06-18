@@ -47,9 +47,7 @@ class ActionInfoScheduledTask extends ScheduledTask
 
         $plugin = $this->_plugin;
 
-        $scheduledTaskRegister = new ScheduledTaskRegister();
-
-        foreach ($scheduledTaskRegister->getScheduledTaskList() as $task) {
+        foreach (ScheduledTaskRegister::getScheduledTaskList() as $task) {
             try {
                 $task->executeAction($plugin);
             } catch (Exception $ex) {
