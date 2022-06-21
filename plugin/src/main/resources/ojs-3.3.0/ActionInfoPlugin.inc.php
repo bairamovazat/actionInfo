@@ -45,10 +45,11 @@ class ActionInfoPlugin extends GenericPlugin
         }
     }
 
-    function sendRequestToCentralServer($url, $data)
+    function sendRequestToCentralServer($url, $data, $token)
     {
         $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'X-AUTH-TOKEN:'.$token));
+
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data, JSON_UNESCAPED_UNICODE));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

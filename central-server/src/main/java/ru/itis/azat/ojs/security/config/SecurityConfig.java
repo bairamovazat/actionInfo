@@ -12,8 +12,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import ru.itis.azat.ojs.security.filter.TokenAuthFilter;
 
 @ComponentScan("ru.itis.azat.ojs")
 @EnableWebSecurity
@@ -23,8 +26,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Qualifier("authProvider")
     @Autowired
     private AuthenticationProvider authenticationProvider;
+
+    @Qualifier("tokenAuthenticationProvider")
+    @Autowired
+    private AuthenticationProvider tokenAuthProvider;
+
+    @Autowired
+    private TokenAuthFilter tokenAuthFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -35,7 +46,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 
         http.csrf().disable();
 
-        http.authorizeRequests()
+        http
+                .addFilterBefore(tokenAuthFilter, BasicAuthenticationFilter.class)
+                .authorizeRequests()
+                .antMatchers("/api/**").hasAuthority("USER")
                 .antMatchers("/profile/**").hasAuthority("USER")
                 .antMatchers("/tasks/create").hasAuthority("CREATOR")
                 .antMatchers("/tasks/*").permitAll()
@@ -43,9 +57,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
                 .antMatchers("/sign-up").permitAll()
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/css/**").permitAll()
-                .antMatchers("/api/**").permitAll()
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
+                .and()
+                    .exceptionHandling()
+                    .authenticationEntryPoint(new Http403ForbiddenEntryPoint())
                 .and()
                     .formLogin()
                     .loginPage("/login")
@@ -65,6 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
+        auth.authenticationProvider(tokenAuthProvider);
         auth.authenticationProvider(authenticationProvider);
     }
 

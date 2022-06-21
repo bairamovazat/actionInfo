@@ -7,11 +7,28 @@ class CentralServerScheduledTask extends AbstractScheduledTask
 {
     private $plugin;
 
+    private $centralServerUrl;
+    private $centralServerToken;
+
+    public function __construct()
+    {
+        $this->centralServerUrl = new PluginSetting("central-server-url", "Url центрального сервера");
+        $this->centralServerToken = new PluginSetting("central-server-token", "Токен для центрального сервера");
+    }
+
+    function getSettings() {
+        return [
+            $this->centralServerUrl,
+            $this->centralServerToken,
+        ];
+    }
+
     public function executeAction($plugin)
     {
         $this->plugin = $plugin;
 
-        $url = "http://localhost:8081/web/api/action-info/ljm";
+        $url = $this->centralServerUrl->getValue($plugin);
+        $token = $this->centralServerToken->getValue($plugin);
 
         $actionInfoDao =& DAORegistry::getDAO('ActionInfoDAO');
 
@@ -46,15 +63,15 @@ class CentralServerScheduledTask extends AbstractScheduledTask
             }
 
             $resultElement = array(
-                'id' => $actionInfo->getId(),
+                'actionId' => $actionInfo->getId(),
                 'type' => $actionInfo->getType(),
                 'action' => $actionInfo->getAction(),
                 'params' => $actionInfo->getParams(),
                 'payload' => $actionInfo->getPayload(),
                 'date' => $actionInfo->getDate(),
-                'user_id' => $actionInfo->getUserId(),
+                'userId' => $actionInfo->getUserId(),
                 'user' => $this->getUserTransferObject($user),
-                'context_id' => $actionInfo->getContextId(),
+                'contextId' => $actionInfo->getContextId(),
                 'context' => $this->getJournalTransferObject($context),
             );
 
@@ -62,10 +79,12 @@ class CentralServerScheduledTask extends AbstractScheduledTask
         }
 
 
-        $requestResult = $plugin->sendRequestToCentralServer($url, $result);
+        $requestResult = $plugin->sendRequestToCentralServer($url, $result, $token);
 
-        if ($requestResult["code"] == 200) {
+        if ($requestResult["code"] == 201) {
             $this->setLastImportedId($endId);
+        } else {
+            error_log(print_r($requestResult));
         }
     }
 

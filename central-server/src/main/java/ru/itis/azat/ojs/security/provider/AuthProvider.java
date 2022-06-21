@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.itis.azat.ojs.repository.UserRepository;
 import ru.itis.azat.ojs.model.User;
+import ru.itis.azat.ojs.security.authentication.TokenAuthentication;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -63,6 +64,6 @@ public class AuthProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return true;
+        return UsernamePasswordAuthenticationToken.class.equals(authentication);
     }
 }

@@ -17,11 +17,11 @@
     {fbvFormSection}
 
     {foreach from=$settings key=id item=setting}
+        <lable>{$setting->getDescription()}</lable>
         {fbvElement
         type="text"
         id=$setting->getId()
         value=$setting->getValue($plugin)
-        label=$setting->getDescription()
         }
     {/foreach}
 

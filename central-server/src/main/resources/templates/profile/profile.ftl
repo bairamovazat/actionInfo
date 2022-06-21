@@ -5,10 +5,6 @@
 <body>
 <#include "../header.ftl">
 <style type="text/css">
-    body {
-        font-family: 'Lato', 'sans-serif';
-    }
-
     .profile {
         min-height: 355px;
         display: inline-block;

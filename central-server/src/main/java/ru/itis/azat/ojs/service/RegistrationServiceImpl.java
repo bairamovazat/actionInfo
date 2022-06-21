@@ -33,8 +33,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     private String emailMessage = "Здравствуйте! Перейдите по ссылке, чтобы подтвердить аккаунт %s/confirm/%s";
 
-    private ExecutorService executorService = Executors.newFixedThreadPool(4);
-
     @Override
     @Transactional
     public void register(UserRegistrationForm userForm) {
@@ -51,9 +49,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         ru.itis.azat.ojs.model.Role role = roleRepository.findFirstByRole(Role.USER);
         role.getUsers().add(newUser);
         newUser.getRoles().add(role);
-        executorService.execute(() -> {
-            emailService.sendMail(String.format(emailMessage, siteUrl, uuid), "Подтверждение аккаунта", userForm.getEmail());
-        });
+        emailService.sendMailAsync(String.format(emailMessage, siteUrl, uuid), "Подтверждение аккаунта", userForm.getEmail());
         userRepository.save(newUser);
     }
 }

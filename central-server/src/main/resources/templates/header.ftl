@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">KPFU</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbarLg">
         <span class="navbar-toggler-icon"></span>
@@ -10,6 +10,10 @@
             <#if model.user.isPresent()>
                 <li class="nav-item">
                     <a class="nav-link" href="profile">Личный кабинет</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="token">Токен</a>
                 </li>
 
                 <li class="nav-item">

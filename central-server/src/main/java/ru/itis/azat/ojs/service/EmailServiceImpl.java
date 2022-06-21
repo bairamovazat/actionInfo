@@ -7,12 +7,15 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Service
 public class EmailServiceImpl implements EmailService {
 
     private final JavaMailSender javaMailSender;
 
+    private ExecutorService executorService = Executors.newFixedThreadPool(4);
 
     public EmailServiceImpl(@Autowired JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
@@ -32,7 +35,13 @@ public class EmailServiceImpl implements EmailService {
         } catch (MessagingException e) {
             throw new IllegalArgumentException(e);
         }
-
         javaMailSender.send(message);
+    }
+
+    @Override
+    public void sendMailAsync(String text, String subject,  String email) {
+        executorService.execute(() -> {
+            sendMail(text, subject, email);
+        });
     }
 }

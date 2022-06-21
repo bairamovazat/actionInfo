@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/10/modelMap"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://cayenne.apache.org/schema/10/modelMap https://cayenne.apache.org/schema/10/modelMap.xsd"
+	 project-version="10">
+	<property name="defaultPackage" value="ru.itis.azat.ojs.model"/>
+	<property name="quoteSqlIdentifiers" value="true"/>
+	<db-entity name="action_info">
+		<db-attribute name="id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
+		<db-attribute name="action" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="action_id" type="BIGINT" isMandatory="true"/>
+		<db-attribute name="context_id" type="BIGINT" isMandatory="true"/>
+		<db-attribute name="date" type="BIGINT" isMandatory="true"/>
+		<db-attribute name="params" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="payload" type="CLOB"/>
+		<db-attribute name="type" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="user_id" type="BIGINT" isMandatory="true"/>
+	</db-entity>
+	<obj-entity name="ActionInfo" className="ru.itis.azat.ojs.model.ActionInfoData" dbEntityName="action_info">
+		<obj-attribute name="action" type="java.lang.String" db-attribute-path="action"/>
+		<obj-attribute name="actionId" type="java.lang.Long" db-attribute-path="action_id"/>
+		<obj-attribute name="contextId" type="java.lang.Long" db-attribute-path="context_id"/>
+		<obj-attribute name="date" type="java.lang.Long" db-attribute-path="date"/>
+		<obj-attribute name="params" type="java.lang.String" db-attribute-path="params"/>
+		<obj-attribute name="payload" type="java.lang.String" db-attribute-path="payload"/>
+		<obj-attribute name="type" type="java.lang.String" db-attribute-path="type"/>
+		<obj-attribute name="userId" type="java.lang.Long" db-attribute-path="user_id"/>
+	</obj-entity>
+	<cgen xmlns="http://cayenne.apache.org/schema/10/cgen">
+		<destDir>../java</destDir>
+		<mode>entity</mode>
+		<template>templates/v4_1/subclass.vm</template>
+		<superTemplate>templates/v4_1/superclass.vm</superTemplate>
+		<embeddableTemplate>templates/v4_1/embeddable-subclass.vm</embeddableTemplate>
+		<embeddableSuperTemplate>templates/v4_1/embeddable-superclass.vm</embeddableSuperTemplate>
+		<queryTemplate>templates/v4_1/datamap-subclass.vm</queryTemplate>
+		<querySuperTemplate>templates/v4_1/datamap-superclass.vm</querySuperTemplate>
+		<outputPattern>*.java</outputPattern>
+		<makePairs>true</makePairs>
+		<usePkgPath>true</usePkgPath>
+		<overwrite>false</overwrite>
+		<createPropertyNames>false</createPropertyNames>
+		<createPKProperties>false</createPKProperties>
+		<client>false</client>
+	</cgen>
+</data-map>

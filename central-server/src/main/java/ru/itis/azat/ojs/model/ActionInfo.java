@@ -28,6 +28,7 @@ public class ActionInfo {
 
     private String params;
 
+    @Lob
     private String payload;
 
     private Long date;

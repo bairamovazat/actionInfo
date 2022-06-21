@@ -26,17 +26,6 @@ import java.util.Properties;
 @ComponentScan(value = {"ru.itis.azat.ojs"})
 public class AppConfiguration implements WebMvcConfigurer {
 
-
-    @Value("${email.name}")
-    private String emailName;
-
-    @Value("${email.password}")
-    private String emailPassword;
-
-    @Value("email.mail.smtp.ssl.trust")
-    private String sslTrust;
-
-
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
         return new PropertySourcesPlaceholderConfigurer();
@@ -50,11 +39,11 @@ public class AppConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/js/**") //
-                .addResourceLocations("/WEB-INF/classes/js/").setCachePeriod(31556926);
+                .addResourceLocations("classpath:/js/").setCachePeriod(31556926);
         registry.addResourceHandler("/css/**") //
-                .addResourceLocations("/WEB-INF/classes/css/").setCachePeriod(31556926);
+                .addResourceLocations("classpath:/css/").setCachePeriod(31556926);
         registry.addResourceHandler("/src/main/resources/**") //
-                .addResourceLocations("/WEB-INF/classes/resources/").setCachePeriod(31556926);
+                .addResourceLocations("classpath:/resources/").setCachePeriod(31556926);
     }
 
     @Bean("threadPoolTaskExecutor")
@@ -68,24 +57,24 @@ public class AppConfiguration implements WebMvcConfigurer {
     }
 
 
-    @Bean
-    public JavaMailSender getJavaMailSender() {
-        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(587);
-        mailSender.setDefaultEncoding("UTF-8");
-        mailSender.setUsername(emailName);
-        mailSender.setPassword(emailPassword);
-
-        Properties props = mailSender.getJavaMailProperties();
-        props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.debug", "true");
-        props.put("mail.smtp.ssl.trust", sslTrust);
-
-        return mailSender;
-    }
+//    @Bean
+//    public JavaMailSender getJavaMailSender() {
+//        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+//        mailSender.setHost("smtp.gmail.com");
+//        mailSender.setPort(587);
+//        mailSender.setDefaultEncoding("UTF-8");
+//        mailSender.setUsername(emailName);
+//        mailSender.setPassword(emailPassword);
+//
+//        Properties props = mailSender.getJavaMailProperties();
+//        props.put("mail.transport.protocol", "smtp");
+//        props.put("mail.smtp.auth", "true");
+//        props.put("mail.smtp.starttls.enable", "true");
+//        props.put("mail.debug", "true");
+//        props.put("mail.smtp.ssl.trust", sslTrust);
+//
+//        return mailSender;
+//    }
 
 //    @Bean
 //    public DriverManagerDataSource driverManagerDataSource(){

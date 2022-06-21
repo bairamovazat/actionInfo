@@ -17,8 +17,8 @@ class LoadHandler extends AbstractHandler
 
     function getSettings() {
         return [
-            new PluginSetting("white-filter", "Белый список url разделённый запятыми"),
-            new PluginSetting("black-filter", "Чёрный список url разделённый запятыми"),
+            $this->whiteFilter,
+            $this->blackFilter,
         ];
     }
 

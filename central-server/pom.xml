@@ -26,6 +26,7 @@
         <!--<webapp.directory>src/main/webapp</webapp.directory>-->
         <vaadin.version>13.0.4</vaadin.version>
         <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
+        <agrest.version>5.0.M2</agrest.version>
     </properties>
 
     <profiles>
@@ -82,6 +83,7 @@
     </build>
 
     <dependencyManagement>
+
         <dependencies>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -89,6 +91,19 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.derby</groupId>
+                <artifactId>derby</artifactId>
+                <version>10.14.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.agrest</groupId>
+                <artifactId>agrest-bom</artifactId>
+                <!-- Replace with a specific 5.x version -->
+                <version>${agrest.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -199,6 +214,41 @@
             <version>2.3.2</version>
         </dependency>
 
+        <!-- Adds Agrest integration for JAX-RS / Jersey 2  -->
+        <dependency>
+            <groupId>io.agrest</groupId>
+            <artifactId>agrest-jaxrs2</artifactId>
+        </dependency>
+
+        <!-- Adds an Agrest DB backend based on Cayenne ORM -->
+        <dependency>
+            <groupId>io.agrest</groupId>
+            <artifactId>agrest-cayenne</artifactId>
+        </dependency>
+
+        <!-- Spring Boot + Jersey -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jersey</artifactId>
+        </dependency>
+
+        <!-- Simple embedded Java DB -->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.eaio.uuid</groupId>
+            <artifactId>uuid</artifactId>
+            <version>3.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
     </dependencies>
 
 </project>

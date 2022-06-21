@@ -26,7 +26,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public User getUserByAuthentication(Authentication authentication) {
-        if(authentication == null){
+        if(authentication == null || !(authentication.getPrincipal() instanceof UserDetailsImpl)){
             return null;
         }
         UserDetailsImpl currentUserDetails = (UserDetailsImpl)authentication.getPrincipal();
@@ -38,9 +38,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public void putUserToModelIfExists(Authentication authentication, ModelMap model) {
         if(authentication == null){
-            model.addAttribute("user", Optional.empty());
-            return;
+           authentication = SecurityContextHolder.getContext().getAuthentication();
         }
-        model.addAttribute("user", Optional.of(UserDto.from(getUserByAuthentication(authentication))));
+
+        model.addAttribute("user", Optional.ofNullable(UserDto.from(getUserByAuthentication(authentication))));
     }
 }

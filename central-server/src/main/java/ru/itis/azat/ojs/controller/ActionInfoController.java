@@ -10,15 +10,8 @@ import ru.itis.azat.ojs.transfer.ActionInfoDto;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * 10.11.2017
- * RegistrationController
- *
- * @author Sidikov Marsel (First Software Engineering Platform)
- * @version v1.0
- */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/")
 
 public class ActionInfoController {
 
@@ -26,8 +19,8 @@ public class ActionInfoController {
     @Autowired
     private ActionInfoRepository actionInfoRepository;
 
-    @PostMapping(value = "/action-info/{journalId}")
-    public ResponseEntity<String> confirmEmail(@PathVariable("journalId") String journalId, @RequestBody List<ActionInfoDto> actionInfoDtoList) {
+    @PostMapping(value = "/action-info/")
+    public ResponseEntity<String> confirmEmail(@RequestBody List<ActionInfoDto> actionInfoDtoList) {
 
         actionInfoRepository.saveAll(actionInfoDtoList.stream().map(actionInfoDto ->
                 ActionInfo.builder()

@@ -15,10 +15,6 @@ class SubmissionScheduledTask extends AbstractScheduledTask
 
         $submissions = $this->getNewSubmission($lastID);
 
-        error_log("!!!!Submission!!!!");
-
-        error_log($lastID);
-
         $newLastId = $lastID;
 
         while ($submission = $submissions->next()) {
