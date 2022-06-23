@@ -8,6 +8,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.itis.azat.ojs.controller.ActionInfoApi;
+import ru.itis.azat.ojs.controller.ActionInfoUserApi;
 
 import javax.sql.DataSource;
 import javax.ws.rs.ApplicationPath;
@@ -34,5 +35,7 @@ public class JerseyConfig extends ResourceConfig {
 
 
         register(ActionInfoApi.class);
+        register(ActionInfoUserApi.class);
+
     }
 }

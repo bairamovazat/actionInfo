@@ -32,8 +32,14 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
             UserDetails userDetails = userDetailsService.loadUserByUsername(tokenCandidate.get().getUser().getLogin());
             tokenAuthentication.setUserDetails(userDetails);
             tokenAuthentication.setAuthenticated(true);
+
+            if (!userDetails.isEnabled()) {
+                throw new IllegalArgumentException("User is disabled");
+            }
             return tokenAuthentication;
-        } else throw new IllegalArgumentException("Bad token");
+        } else {
+            throw new IllegalArgumentException("Bad token");
+        }
     }
 
     @Override

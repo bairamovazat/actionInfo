@@ -5,37 +5,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.azat.ojs.repository.ActionInfoRepository;
 import ru.itis.azat.ojs.model.ActionInfo;
+import ru.itis.azat.ojs.service.ActionInfoService;
 import ru.itis.azat.ojs.transfer.ActionInfoDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/")
-
+@RequestMapping("/plugin/api")
 public class ActionInfoController {
 
 
     @Autowired
-    private ActionInfoRepository actionInfoRepository;
+    private ActionInfoService actionInfoService;
 
-    @PostMapping(value = "/action-info/")
+    @PostMapping(value = "/action-info")
     public ResponseEntity<String> confirmEmail(@RequestBody List<ActionInfoDto> actionInfoDtoList) {
 
-        actionInfoRepository.saveAll(actionInfoDtoList.stream().map(actionInfoDto ->
-                ActionInfo.builder()
-                        .action_id(actionInfoDto.getId())
-                        .type(actionInfoDto.getType())
-                        .action(actionInfoDto.getAction())
-                        .params(actionInfoDto.getParams())
-                        .payload(actionInfoDto.getPayload())
-                        .user_id(actionInfoDto.getUser_id())
-                        .context_id(actionInfoDto.getContext_id())
-                        .date(actionInfoDto.getDate())
-                        .build()
-        ).collect(Collectors.toList()));
+        actionInfoService.addAll(actionInfoDtoList);
 
-        return ResponseEntity.ok("OK");
+        return ResponseEntity.status(201).build();
     }
 
 }

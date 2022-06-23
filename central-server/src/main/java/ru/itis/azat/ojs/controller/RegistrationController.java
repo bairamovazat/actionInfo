@@ -64,6 +64,7 @@ public class RegistrationController {
 
     @GetMapping(value = "/sign-up")
     public String getSignUpPage(@ModelAttribute("model") ModelMap model) {
+        authenticationService.putUserToModelIfExists(null, model);
         return "sign_up";
     }
 }

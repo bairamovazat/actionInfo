@@ -132,56 +132,56 @@
                                 </figure>
                             </div>
                         </div>
-                        <div class="col-xs-12 divider text-center d-flex">
-                            <div class="col-xs-12 col-sm-4 emphasis">
-                                <h2><strong> 20,7K </strong></h2>
-                                <p>
-                                    <small>Following</small>
-                                </p>
+<#--                        <div class="col-xs-12 divider text-center d-flex">-->
+<#--                            <div class="col-xs-12 col-sm-4 emphasis">-->
+<#--                                <h2><strong> 20,7K </strong></h2>-->
+<#--                                <p>-->
+<#--                                    <small>Following</small>-->
+<#--                                </p>-->
 
-                                    <button class="btn btn-success btn-block">
-                                    <span class="fa fa-plus-circle">
+<#--                                    <button class="btn btn-success btn-block">-->
+<#--                                    <span class="fa fa-plus-circle">-->
 
-                                    </span>
-                                        Просмотреть
-                                    </button>
-                            </div>
-                            <div class="col-xs-12 col-sm-4 emphasis">
-                                <h2><strong>245</strong></h2>
-                                <p>
-                                    <small>Following</small>
-                                </p>
-                                <button class="btn btn-info btn-block"><span class="fa fa-user"></span> View Profile
-                                </button>
-                            </div>
-                            <div class="col-xs-12 col-sm-4 emphasis">
-                                <h2><strong>43</strong></h2>
-                                <p>
-                                    <small>Snippets</small>
-                                </p>
-                                <div class="btn-group dropup btn-block">
-                                    <button type="button" class="btn btn-primary"><span class="fa fa-gear"></span>
-                                        Options
-                                    </button>
-                                    <button type="button" class="btn btn-primary dropdown-toggle"
-                                            data-toggle="dropdown">
-                                        <span class="caret"></span>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <ul class="dropdown-menu text-left" role="menu">
-                                        <li><a href="#"><span class="fa fa-envelope pull-right"></span> Send an email
-                                            </a></li>
-                                        <li><a href="#"><span class="fa fa-list pull-right"></span> Add or remove from a
-                                                list </a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#"><span class="fa fa-warning pull-right"></span>Report this user
-                                                for spam</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#" class="btn disabled" role="button"> Unfollow </a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+<#--                                    </span>-->
+<#--                                        Просмотреть-->
+<#--                                    </button>-->
+<#--                            </div>-->
+<#--                            <div class="col-xs-12 col-sm-4 emphasis">-->
+<#--                                <h2><strong>245</strong></h2>-->
+<#--                                <p>-->
+<#--                                    <small>Following</small>-->
+<#--                                </p>-->
+<#--                                <button class="btn btn-info btn-block"><span class="fa fa-user"></span> View Profile-->
+<#--                                </button>-->
+<#--                            </div>-->
+<#--                            <div class="col-xs-12 col-sm-4 emphasis">-->
+<#--                                <h2><strong>43</strong></h2>-->
+<#--                                <p>-->
+<#--                                    <small>Snippets</small>-->
+<#--                                </p>-->
+<#--                                <div class="btn-group dropup btn-block">-->
+<#--                                    <button type="button" class="btn btn-primary"><span class="fa fa-gear"></span>-->
+<#--                                        Options-->
+<#--                                    </button>-->
+<#--                                    <button type="button" class="btn btn-primary dropdown-toggle"-->
+<#--                                            data-toggle="dropdown">-->
+<#--                                        <span class="caret"></span>-->
+<#--                                        <span class="sr-only">Toggle Dropdown</span>-->
+<#--                                    </button>-->
+<#--                                    <ul class="dropdown-menu text-left" role="menu">-->
+<#--                                        <li><a href="#"><span class="fa fa-envelope pull-right"></span> Send an email-->
+<#--                                            </a></li>-->
+<#--                                        <li><a href="#"><span class="fa fa-list pull-right"></span> Add or remove from a-->
+<#--                                                list </a></li>-->
+<#--                                        <li class="divider"></li>-->
+<#--                                        <li><a href="#"><span class="fa fa-warning pull-right"></span>Report this user-->
+<#--                                                for spam</a></li>-->
+<#--                                        <li class="divider"></li>-->
+<#--                                        <li><a href="#" class="btn disabled" role="button"> Unfollow </a></li>-->
+<#--                                    </ul>-->
+<#--                                </div>-->
+<#--                            </div>-->
+<#--                        </div>-->
                     </div>
                 </div>
             </div>

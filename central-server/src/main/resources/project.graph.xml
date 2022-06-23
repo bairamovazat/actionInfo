@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<graphs xmlns="http://cayenne.apache.org/schema/10/graph">
+	<graph type="ER" scale="1.0">
+		<entity name="action_info_user" x="10.0" y="10.0" width="92.0" height="130.0"/>
+		<entity name="action_info" x="20.0" y="26.0" width="63.0" height="178.0"/>
+		<entity name="action_info_context" x="10.0" y="10.0" width="20.0" height="20.0"/>
+	</graph>
+</graphs>

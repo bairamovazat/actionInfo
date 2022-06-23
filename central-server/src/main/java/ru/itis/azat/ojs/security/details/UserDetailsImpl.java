@@ -38,12 +38,12 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return this.user.getState().equals(State.CONFIRMED);
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return this.user.getState().equals(State.CONFIRMED);
     }
 
     @Override

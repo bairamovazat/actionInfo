@@ -4,7 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.itis.azat.ojs.model.ActionInfoContext;
+import ru.itis.azat.ojs.model.ActionInfoUser;
+import ru.itis.azat.ojs.model.User;
 
+import javax.persistence.*;
 import java.util.Map;
 
 @Data
@@ -12,11 +16,16 @@ import java.util.Map;
 @NoArgsConstructor
 @Builder
 public class ActionInfoDto {
+
+    private Long entityId;
+
     private Long id;
 
     private String type;
 
     private String action;
+
+    private Long actionId;
 
     private String params;
 
@@ -24,12 +33,8 @@ public class ActionInfoDto {
 
     private Long date;
 
-    private Long user_id;
+    private ActionInfoUserDto user;
 
-    private Map<String, Object> user;
-
-    private Long context_id;
-
-    private Map<String, Object> context;
+    private ActionInfoContextDto context;
 
 }

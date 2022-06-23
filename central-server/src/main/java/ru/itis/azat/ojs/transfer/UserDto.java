@@ -23,6 +23,10 @@ public class UserDto {
     private State state;
     private String email;
 
+    public boolean hasRole(String role) {
+        return this.role.stream().anyMatch(r -> r.toString().equals(role));
+    }
+
     public static UserDto from(User user){
         if (user == null) {
             return null;

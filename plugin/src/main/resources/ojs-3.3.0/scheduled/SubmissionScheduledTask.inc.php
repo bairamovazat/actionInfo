@@ -108,8 +108,8 @@ class SubmissionScheduledTask extends AbstractScheduledTask
         /** @var ActionInfo */
         $actionInfo = $actionInfoDao->newDataObject();
 
-        $actionInfo->setUserId($userId);
-        $actionInfo->setContextId($contextId);
+        $actionInfo->setUserId($userId == null ? 0 : $userId);
+        $actionInfo->setContextId($contextId == null ? 0 : $contextId);
         $actionInfo->setDate($date);
         $actionInfo->setType($type);
         $actionInfo->setAction($action);

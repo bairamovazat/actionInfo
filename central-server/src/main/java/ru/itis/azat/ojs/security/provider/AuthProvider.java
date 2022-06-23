@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import ru.itis.azat.ojs.repository.UserRepository;
 import ru.itis.azat.ojs.model.User;
 import ru.itis.azat.ojs.security.authentication.TokenAuthentication;
+import ru.itis.azat.ojs.security.details.Role;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -56,6 +57,11 @@ public class AuthProvider implements AuthenticationProvider {
 
         // загружаем details пользователя по имени
         UserDetails details = userDetailsService.loadUserByUsername(username);
+
+        if (!details.isEnabled() && !userOptional.get().hasRole(Role.ADMIN)) {
+            throw new IllegalArgumentException("User is disabled");
+        }
+
         // получаем его права ADMIN либо USER
         Collection<? extends GrantedAuthority> authorities = details.getAuthorities();
         // возвращаем созданную аутентификацию дальше

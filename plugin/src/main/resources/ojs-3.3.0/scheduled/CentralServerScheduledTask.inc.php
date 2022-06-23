@@ -63,15 +63,13 @@ class CentralServerScheduledTask extends AbstractScheduledTask
             }
 
             $resultElement = array(
-                'actionId' => $actionInfo->getId(),
+                'id' => $actionInfo->getId(),
                 'type' => $actionInfo->getType(),
                 'action' => $actionInfo->getAction(),
                 'params' => $actionInfo->getParams(),
                 'payload' => $actionInfo->getPayload(),
                 'date' => $actionInfo->getDate(),
-                'userId' => $actionInfo->getUserId(),
                 'user' => $this->getUserTransferObject($user),
-                'contextId' => $actionInfo->getContextId(),
                 'context' => $this->getJournalTransferObject($context),
             );
 

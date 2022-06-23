@@ -9,21 +9,34 @@
         <ul class="navbar-nav">
             <#if model.user.isPresent()>
                 <li class="nav-item">
-                    <a class="nav-link" href="profile">Личный кабинет</a>
+                    <a class="nav-link" href="<@spring.url "/"/>profile">Личный кабинет</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="token">Токен</a>
+                    <a class="nav-link" href="<@spring.url "/"/>token">Токен</a>
                 </li>
 
+
+                <#if model.user.get().hasRole("ADMIN")>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<@spring.url "/"/>admin/users">Пользователи</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="<@spring.url "/"/>admin/rest-client">Rest</a>
+                    </li>
+                </#if>
+
+
                 <li class="nav-item">
-                    <a class="nav-link" href="logout">Выход</a>
+                    <a class="nav-link" href="<@spring.url "/"/>logout">Выход</a>
                 </li>
             </#if>
 
+
              <#if !model.user.isPresent()>
                 <li class="nav-item">
-                    <a class="nav-link" href="login">Авторизация</a>
+                    <a class="nav-link" href="<@spring.url "/"/>login">Авторизация</a>
                 </li>
              </#if>
         </ul>

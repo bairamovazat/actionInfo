@@ -42,6 +42,8 @@ public class AppConfiguration implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/js/").setCachePeriod(31556926);
         registry.addResourceHandler("/css/**") //
                 .addResourceLocations("classpath:/css/").setCachePeriod(31556926);
+        registry.addResourceHandler("/resources/**") //
+                .addResourceLocations("classpath:/resources/").setCachePeriod(31556926);
         registry.addResourceHandler("/src/main/resources/**") //
                 .addResourceLocations("classpath:/resources/").setCachePeriod(31556926);
     }

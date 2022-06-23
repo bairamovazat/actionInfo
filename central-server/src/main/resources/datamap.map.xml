@@ -3,29 +3,75 @@
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	 xsi:schemaLocation="http://cayenne.apache.org/schema/10/modelMap https://cayenne.apache.org/schema/10/modelMap.xsd"
 	 project-version="10">
-	<property name="defaultPackage" value="ru.itis.azat.ojs.model"/>
+	<property name="defaultPackage" value="ru.itis.azat.ojs.model.cayenne"/>
 	<property name="quoteSqlIdentifiers" value="true"/>
 	<db-entity name="action_info">
-		<db-attribute name="id" type="BIGINT" isPrimaryKey="true" isGenerated="true" isMandatory="true"/>
-		<db-attribute name="action" type="VARCHAR" isMandatory="true" length="256"/>
-		<db-attribute name="action_id" type="BIGINT" isMandatory="true"/>
-		<db-attribute name="context_id" type="BIGINT" isMandatory="true"/>
-		<db-attribute name="date" type="BIGINT" isMandatory="true"/>
-		<db-attribute name="params" type="VARCHAR" isMandatory="true" length="256"/>
-		<db-attribute name="payload" type="CLOB"/>
-		<db-attribute name="type" type="VARCHAR" isMandatory="true" length="256"/>
-		<db-attribute name="user_id" type="BIGINT" isMandatory="true"/>
+		<db-attribute name="action" type="VARCHAR" length="255"/>
+		<db-attribute name="context_id" type="BIGINT"/>
+		<db-attribute name="date" type="BIGINT"/>
+		<db-attribute name="id" type="BIGINT" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="ojs_id" type="BIGINT"/>
+		<db-attribute name="params" type="CLOB"/>
+		<db-attribute name="payload" type="VARCHAR" length="255"/>
+		<db-attribute name="type" type="VARCHAR" length="255"/>
+		<db-attribute name="user_id" type="BIGINT"/>
 	</db-entity>
-	<obj-entity name="ActionInfo" className="ru.itis.azat.ojs.model.ActionInfoData" dbEntityName="action_info">
+	<db-entity name="action_info_context">
+		<db-attribute name="acronym" type="CLOB"/>
+		<db-attribute name="description" type="CLOB"/>
+		<db-attribute name="enabled" type="BOOLEAN"/>
+		<db-attribute name="id" type="BIGINT" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="ojs_id" type="BIGINT"/>
+		<db-attribute name="librarian_information" type="CLOB"/>
+		<db-attribute name="name" type="VARCHAR" length="255"/>
+		<db-attribute name="primary_locale" type="VARCHAR" length="255"/>
+		<db-attribute name="url_path" type="VARCHAR" length="255"/>
+	</db-entity>
+	<db-entity name="action_info_user">
+		<db-attribute name="email" type="VARCHAR" length="255"/>
+		<db-attribute name="id" type="BIGINT" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="ojs_id" type="BIGINT"/>
+		<db-attribute name="orcid" type="VARCHAR" length="255"/>
+		<db-attribute name="url" type="VARCHAR" length="255"/>
+		<db-attribute name="username" type="VARCHAR" length="255"/>
+	</db-entity>
+	<obj-entity name="ActionInfo" className="ru.itis.azat.ojs.model.cayenne.ActionInfo" dbEntityName="action_info">
 		<obj-attribute name="action" type="java.lang.String" db-attribute-path="action"/>
-		<obj-attribute name="actionId" type="java.lang.Long" db-attribute-path="action_id"/>
 		<obj-attribute name="contextId" type="java.lang.Long" db-attribute-path="context_id"/>
 		<obj-attribute name="date" type="java.lang.Long" db-attribute-path="date"/>
+		<obj-attribute name="id" type="java.lang.Long" db-attribute-path="id"/>
+		<obj-attribute name="ojsId" type="java.lang.Long" db-attribute-path="ojs_id"/>
 		<obj-attribute name="params" type="java.lang.String" db-attribute-path="params"/>
 		<obj-attribute name="payload" type="java.lang.String" db-attribute-path="payload"/>
 		<obj-attribute name="type" type="java.lang.String" db-attribute-path="type"/>
 		<obj-attribute name="userId" type="java.lang.Long" db-attribute-path="user_id"/>
 	</obj-entity>
+	<obj-entity name="ActionInfoContext" className="ru.itis.azat.ojs.model.cayenne.ActionInfoContext" dbEntityName="action_info_context">
+		<obj-attribute name="acronym" type="java.lang.String" db-attribute-path="acronym"/>
+		<obj-attribute name="description" type="java.lang.String" db-attribute-path="description"/>
+		<obj-attribute name="enabled" type="java.lang.Boolean" db-attribute-path="enabled"/>
+		<obj-attribute name="id" type="java.lang.Long" db-attribute-path="id"/>
+		<obj-attribute name="ojsId" type="java.lang.Long" db-attribute-path="ojs_id"/>
+		<obj-attribute name="librarianInformation" type="java.lang.String" db-attribute-path="librarian_information"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+		<obj-attribute name="urlPath" type="java.lang.String" db-attribute-path="url_path"/>
+	</obj-entity>
+	<obj-entity name="ActionInfoUser" className="ru.itis.azat.ojs.model.cayenne.ActionInfoUser" dbEntityName="action_info_user">
+		<obj-attribute name="email" type="java.lang.String" db-attribute-path="email"/>
+		<obj-attribute name="id" type="java.lang.Long" db-attribute-path="id"/>
+		<obj-attribute name="ojsId" type="java.lang.Long" db-attribute-path="ojs_id"/>
+		<obj-attribute name="orcid" type="java.lang.String" db-attribute-path="orcid"/>
+		<obj-attribute name="url" type="java.lang.String" db-attribute-path="url"/>
+		<obj-attribute name="username" type="java.lang.String" db-attribute-path="username"/>
+	</obj-entity>
+	<db-relationship name="context" source="action_info" target="action_info_context">
+		<db-attribute-pair source="context_id" target="id"/>
+	</db-relationship>
+	<db-relationship name="user" source="action_info" target="action_info_user">
+		<db-attribute-pair source="user_id" target="id"/>
+	</db-relationship>
+	<obj-relationship name="context" source="ActionInfo" target="ActionInfoContext" deleteRule="Nullify" db-relationship-path="context"/>
+	<obj-relationship name="user" source="ActionInfo" target="ActionInfoUser" deleteRule="Nullify" db-relationship-path="user"/>
 	<cgen xmlns="http://cayenne.apache.org/schema/10/cgen">
 		<destDir>../java</destDir>
 		<mode>entity</mode>

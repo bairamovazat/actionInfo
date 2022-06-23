@@ -2,6 +2,7 @@ package ru.itis.azat.ojs.model;
 
 
 import lombok.*;
+import ru.itis.azat.ojs.transfer.ActionInfoDto;
 
 import javax.persistence.*;
 
@@ -16,25 +17,45 @@ import javax.persistence.*;
 @Builder
 public class ActionInfo {
 
+
+//		<db-attribute name="context_id" type="BIGINT"/>
+//
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Long ojsId;
 
     private String type;
 
     private String action;
 
-    private Long action_id;
-
     private String params;
 
-    @Lob
+    @Column(columnDefinition="varchar")
     private String payload;
 
     private Long date;
 
-    private Long user_id;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "owner_id")
+    private User owner;
 
-    private Long context_id;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "user_id")
+    private ActionInfoUser user;
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "context_id")
+    private ActionInfoContext context;
+
+    public void update(ActionInfoDto actionInfoDto) {
+        this.ojsId = actionInfoDto.getId();
+        this.type = actionInfoDto.getType();
+        this.action = actionInfoDto.getAction();
+        this.params = actionInfoDto.getParams();
+        this.date = actionInfoDto.getDate();
+        this.payload = actionInfoDto.getPayload();
+    }
 
 }
